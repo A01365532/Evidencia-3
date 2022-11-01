@@ -1,0 +1,271 @@
+---
+title: "Evidencia 3"
+author: "Victor Huerta"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df <- read.csv('precios_autos.csv')
+str(df)
+```
+
+
+```{r}
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(GGally)
+library(Hmisc)
+library(corrplot)
+library(PerformanceAnalytics)
+```
+```{r}
+cuantitativas <- df[c(1,7,8,9,10,11,14,15,16,17,18,19,20,21)]
+rcorr(as.matrix(cuantitativas))
+```
+
+```{r}
+round(cor(cuantitativas),2)  
+rcorr(as.matrix(cuantitativas))
+correlacion<-round(cor(cuantitativas), 1)
+
+corrplot(correlacion, method="number", type="upper")
+```
+```{r}
+chart.Correlation(cuantitativas, histogram = F, pch = 19)
+```
+
+```{r}
+lms <- lm(df$carheight ~ df$symboling)
+plot(x=df$carheight, y=df$symboling, xlab = "Car heigh",ylab = "Symboling", main = 'Car height vs Symboling')
+abline(lms)
+
+lmwb <- lm(df$wheelbase ~ df$carlength)
+plot(x=df$wheelbase,y=df$carlength,xlab = "Wheel base",ylab = "Car length", main = 'Wheel base vs Car length')
+abline(lmwb)
+
+lmcl <- lm(df$carlength ~ df$curbweight)
+plot(x=df$carlength,y=df$curbweight,xlab = "Car length",ylab = "Curb weight", main = 'Car length vs Curb weight')
+abline(lmcl)
+
+lmcw <- lm(df$carwidth ~ df$price)
+plot(x=df$carwidth,y=df$price,xlab = "Car width",ylab = "Price", main = 'Car width vs Price')
+abline(lmcw)
+
+lmch <- lm(df$carheight ~ df$price)
+plot(x=df$carheight,y=df$price,xlab = "Car height",ylab = "Price", main = 'Car height vs Price')
+abline(lmch)
+
+lmcuw <- lm(df$curbweight ~ df$price)
+plot(x=df$curbweight,y=df$price,xlab = "Curb wight",ylab = "Price", main = 'Curb wight vs Price')
+abline(lmcuw)
+
+lmes <- lm(df$enginesize ~ df$price)
+plot(x=df$enginesize,y=df$price,xlab = "Engine size ",ylab = "Price", main = 'Engine size vs Price')
+abline(lmes)
+
+lmst <- lm(df$stroke ~ df$price)
+plot(x=df$stroke,y=df$price,xlab = "Stroke ",ylab = "Price", main = 'Stroke vs Price')
+abline(lmst)
+
+lmcr <- lm(df$compressionratio ~ df$price)
+plot(x=df$compressionratio,y=df$price,xlab = "Compression ratio",ylab = "Price", main = 'Compression ratio vs Price')
+abline(lmcr)
+
+lmhp <- lm(df$horsepower ~ df$price)
+plot(x=df$horsepower,y=df$price,xlab = "Horse power ",ylab = "Price", main = 'Horse power vs Price')
+abline(lmhp)
+
+lmrpm <- lm(df$peakrpm ~ df$price)
+plot(x=df$peakrpm,y=df$price,xlab = "Peak rpm",ylab = "Price", main = 'Peak rpm vs Price')
+abline(lmrpm)
+
+lmcmpg <- lm(df$citympg ~ df$price)
+plot(x=df$citympg,y=df$price,xlab = "City mpg",ylab = "Price", main = 'City mpg vs Price')
+abline(lmcmpg)
+
+lmhmpg <- lm(df$highwaympg ~ df$price)
+plot(x=df$highwaympg,y=df$price,xlab = "Highway mpg",ylab = "Price", main = 'Highway mpg vs Price')
+abline(lmhmpg)
+```
+
+```{r}
+mean(df$symboling)
+mean(df$wheelbase)
+mean(df$carlength)
+mean(df$carwidth)
+mean(df$carheight)
+mean(df$curbweight)
+mean(df$enginesize)
+mean(df$stroke)
+mean(df$compressionratio)
+mean(df$horsepower)
+mean(df$peakrpm)
+mean(df$citympg)
+mean(df$highwaympg)
+mean(df$price)
+```
+```{r}
+sd(df$symboling)
+sd(df$wheelbase)
+sd(df$carlength)
+sd(df$carwidth)
+sd(df$carheight)
+sd(df$curbweight)
+sd(df$enginesize)
+sd(df$stroke)
+sd(df$compressionratio)
+sd(df$horsepower)
+sd(df$peakrpm)
+sd(df$citympg)
+sd(df$highwaympg)
+sd(df$price)
+```
+```{r}
+quantile(df$symboling)
+quantile(df$wheelbase)
+quantile(df$carlength)
+quantile(df$carwidth)
+quantile(df$carheight)
+quantile(df$curbweight)
+quantile(df$enginesize)
+quantile(df$stroke)
+quantile(df$compressionratio)
+quantile(df$horsepower)
+quantile(df$peakrpm)
+quantile(df$citympg)
+quantile(df$highwaympg)
+quantile(df$price)
+```
+
+
+
+```{r}
+boxplot(df$symboling, main = 'Symboling')
+hist(df$symboling, main = 'Symboling')
+
+
+boxplot(df$wheelbase, main = 'Wheel base')
+hist(df$wheelbase, main = 'Wheel base')
+
+boxplot(df$carlength, main = 'Car length')
+hist(df$carlength, main = 'Car length')
+
+boxplot(df$carwidth, main = 'Car width')
+hist(df$carwidth, main = 'Car width')
+
+boxplot(df$carheight, main = 'Car height')
+hist(df$carheight, main = 'Car height')
+
+boxplot(df$curbweight, main = 'Curb weight')
+hist(df$curbweight, main = 'Curb weight')
+
+boxplot(df$enginesize, main = 'Engine size')
+hist(df$enginesize, main = 'Engine size')
+
+boxplot(df$stroke, main = 'Stroke')
+hist(df$stroke, main = 'Stroke')
+
+boxplot(df$compressionratio, main = 'Compression ratio')
+hist(df$compressionratio, main = 'Compression ratio')
+
+boxplot(df$horsepower, main = 'Horse power')
+hist(df$horsepower, main = 'Horse power')
+
+boxplot(df$peakrpm, main = 'Peak rpm')
+hist(df$peakrpm, main = 'Peak rpm')
+
+boxplot(df$citympg, main = 'City mpg')
+hist(df$citympg, main = 'City mpg')
+
+boxplot(df$highwaympg, main = 'Highway mpg')
+hist(df$highwaympg, main = 'Highway mpg')
+
+boxplot(df$price, main = 'Price')
+hist(df$price, main = 'Price')
+```
+```{r}
+is.na(df)
+```
+
+modelo predictivo: regresion lineal
+```{r}
+regresion <- lm(enginesize~ price, data= df )
+plot(x=df$price, y=df$enginesize,xlab='Precio', ylab='Tamaño de motor')
+abline(regresion)
+
+
+```
+```{r}
+cor(df$price, df$enginesize, method = "spearman")
+```
+```{r}
+
+df.fit = lm( df$price ~ df$enginesize , data = df)
+summary(df.fit)
+
+df1 <- df[21,14]
+df1
+```
+```{r}
+df1 <- df %>% select(21, 14)
+df1
+```
+
+```{r}
+
+predict(regresion, df1)
+```
+```{r}
+confint(regresion, level = 0.90)
+```
+```{r}
+t.test(df1)
+```
+
+```{r}
+
+# Grafico de dispersion y recta
+plot(df1$price, df1$enginesize, xlab='Precio', ylab='Grasas')
+abline(regresion)
+
+# Intervalos de confianza de la respuesta media:
+# ic es una matriz con tres columnas: la primera es la prediccion, las otras dos son los extremos del intervalo
+ic <- predict(regresion, df1, interval = 'confidence')
+ic
+
+
+# Intervalos de prediccion
+ic1 <- predict(regresion, df1, interval = 'prediction')
+ic1
+
+plot(ic,ic1)
+```
+
+
+
+
+```{r}
+plot(df.fit)
+qqnorm(df.fit$residuals)
+qqline(df.fit$residuals)
+hist(df.fit$residuals)
+```
+```{r}
+t.test(df.fit$residuals)
+```
+
+
+
+
+
+
+
+
+
+
